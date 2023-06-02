@@ -1,17 +1,15 @@
 import { useState } from "react";
 import { twMerge } from "tailwind-merge";
-import MyToast from "../components/MyToast";
 
-const EmailSubscribe = () => {
+const EmailSubscribe = ({ handleAddToast }) => {
   const [email, setEmail] = useState("");
   const [isEmailValid, setIsEmailValid] = useState(true);
-  const [toastItems, setToastItems] = useState([]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (email && email.match(/^\S+@\S+\.\S+$/)) {
       setIsEmailValid(true);
-      setToastItems([...toastItems, `${email} registered!`]);
+      handleAddToast(`${email} registered!`);
     } else {
       setIsEmailValid(false);
     }
@@ -22,26 +20,29 @@ const EmailSubscribe = () => {
       id="email-subscribe"
       className={twMerge(
         "bg-zinc-700 min-h-screen",
-        "flex flex-col items-center justify-center"
+        "flex flex-col items-center justify-center space-y-8 py-8"
       )}
     >
       {/* CARD #1 */}
-      <div className="bg-zinc-800 w-3/4 rounded-2xl max-w-2xl my-4">
+      <div className="bg-zinc-800 w-3/4 rounded-2xl max-w-2xl">
         <p className="p-8 text-white">Lorem ipsum dolor sit amet.</p>
       </div>
 
       {/* CARD #2 */}
       <div
         className={twMerge(
-          "bg-zinc-800 w-3/4 rounded-2xl max-w-2xl my-4",
+          "bg-zinc-800 w-3/4 rounded-2xl max-w-2xl",
           "overflow-hidden sm:flex"
         )}
       >
-        <div className="sm:w-1/3 min-h-60 bg-success">
+        <div className="sm:w-1/3 min-h-60 bg-success overflow-hidden">
           <img
             src="https://source.unsplash.com/random/?plant"
             alt="plant"
-            className="h-full w-full object-cover object-center"
+            className={twMerge(
+              "h-full w-full object-cover object-center",
+              "hover:scale-110 transition"
+            )}
           />
         </div>
 
@@ -89,8 +90,6 @@ const EmailSubscribe = () => {
       </div>
 
       {/* END OF CARDS */}
-
-      <MyToast toastItems={toastItems} setToastItems={setToastItems} />
     </div>
   );
 };
