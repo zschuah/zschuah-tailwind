@@ -3,24 +3,28 @@ import { TbSearch, TbZoomReset } from "react-icons/tb";
 import { twMerge } from "tailwind-merge";
 import MyToast from "../components/MyToast";
 import useToast from "../hooks/useToast";
+import { searchPexelsImages } from "../data/pexels";
 
 const ImageGallery = () => {
   const { toastItems, handleAddToast } = useToast();
   const [seedList, setSeedList] = useState(
     [...Array(8)].map(() => crypto.randomUUID())
   );
-  const [isPicsum, setIsPicsum] = useState(true);
 
+  const [isPicsum, setIsPicsum] = useState(true);
   const [input, setInput] = useState("");
-  const [query, setQuery] = useState("");
+
+  const fetchImages = async () => {
+    const data = await searchPexelsImages(input, seedList.length);
+    console.log(data);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (input) {
       handleAddToast("Searching for " + input);
-      setQuery(input);
-      setInput("");
       setIsPicsum(false);
+      fetchImages();
     }
   };
 
@@ -67,7 +71,7 @@ const ImageGallery = () => {
           {seedList.map((seed) => {
             const imgUrl = isPicsum
               ? `https://picsum.photos/seed/${seed}/600/400`
-              : `https://source.unsplash.com/random/?${query}=${seed}`;
+              : "";
 
             return (
               <div key={seed} className="h-60 overflow-hidden">
