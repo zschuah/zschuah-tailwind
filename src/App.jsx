@@ -1,10 +1,9 @@
-import { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import MyToast from "./components/MyToast";
+import useToast from "./hooks/useToast";
 import EmailSubscribe from "./pages/EmailSubscribe";
 import ImageGallery from "./pages/ImageGallery";
-import useToast from "./hooks/useToast";
 
 function App() {
   const { toastItems, setToastItems, handleAddToast } = useToast();
