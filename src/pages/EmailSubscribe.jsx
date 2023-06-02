@@ -1,7 +1,11 @@
 import { useState } from "react";
 import { twMerge } from "tailwind-merge";
+import MyToast from "../components/MyToast";
+import useToast from "../hooks/useToast";
 
-const EmailSubscribe = ({ handleAddToast }) => {
+const EmailSubscribe = () => {
+  const { toastItems, handleAddToast } = useToast();
+
   const [email, setEmail] = useState("");
   const [isEmailValid, setIsEmailValid] = useState(true);
 
@@ -9,7 +13,7 @@ const EmailSubscribe = ({ handleAddToast }) => {
     e.preventDefault();
     if (email && email.match(/^\S+@\S+\.\S+$/)) {
       setIsEmailValid(true);
-      handleAddToast(`${email} registered!`);
+      handleAddToast(email + " registered!");
     } else {
       setIsEmailValid(false);
     }
@@ -20,7 +24,7 @@ const EmailSubscribe = ({ handleAddToast }) => {
       id="email-subscribe"
       className={twMerge(
         "bg-zinc-700 min-h-screen",
-        "flex flex-col items-center justify-center space-y-8 py-8"
+        "flex flex-col items-center justify-center space-y-4 py-28"
       )}
     >
       {/* CARD #1 */}
@@ -90,6 +94,7 @@ const EmailSubscribe = ({ handleAddToast }) => {
       </div>
 
       {/* END OF CARDS */}
+      <MyToast toastItems={toastItems} success />
     </div>
   );
 };

@@ -1,54 +1,81 @@
 import { useState } from "react";
+import { TbSearch, TbZoomReset } from "react-icons/tb";
 import { twMerge } from "tailwind-merge";
+import MyToast from "../components/MyToast";
+import useToast from "../hooks/useToast";
 
 const ImageGallery = () => {
-  const [seedList] = useState([...Array(8)].map(() => crypto.randomUUID()));
+  const { toastItems, handleAddToast } = useToast();
+  const [seedList, setSeedList] = useState(
+    [...Array(8)].map(() => crypto.randomUUID())
+  );
   const [isPicsum, setIsPicsum] = useState(true);
+
   const [input, setInput] = useState("");
+  const [query, setQuery] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (input) {
+      handleAddToast("Searching for " + input);
+      setQuery(input);
+      setInput("");
+      setIsPicsum(false);
+    }
+  };
+
+  const handleReset = () => {
+    setIsPicsum(true);
+    setSeedList(seedList.map(() => crypto.randomUUID()));
   };
 
   return (
     <div
       id="image-gallery"
-      className="bg-cyan-100 min-h-screen grid place-items-center py-8"
+      className="bg-cyan-100 min-h-screen grid place-items-center py-28"
     >
       {/* CARD CONTAINER */}
       <div className="bg-white w-11/12 p-8 rounded-2xl shadow-2xl max-w-7xl">
-        <form className="join" onSubmit={handleSubmit}>
-          <input
-            type="text"
-            placeholder="Type here"
-            className="input input-bordered input-info join-item"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-          />
-          <button className="btn btn-info join-item">
-            <span className="text-2xl">&#9732;</span>
+        <div className="flex items-center space-x-2">
+          <form className="join" onSubmit={handleSubmit}>
+            <input
+              type="text"
+              placeholder="Type here"
+              className="input input-bordered input-info join-item"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+            />
+            <button className="btn btn-info join-item">
+              <TbSearch className="text-2xl" />
+            </button>
+          </form>
+
+          <button className="btn btn-warning" onClick={handleReset}>
+            <TbZoomReset className="text-2xl" />
           </button>
-        </form>
+
+          <p>{isPicsum ? "Picsum" : "Unsplash"}</p>
+        </div>
 
         {/* GALLERY */}
         <div
           className={twMerge(
-            "grid grid-cols-1 gap-4 my-8",
+            "grid grid-cols-1 gap-2 my-8",
             "sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
           )}
         >
           {seedList.map((seed) => {
             const imgUrl = isPicsum
               ? `https://picsum.photos/seed/${seed}/600/400`
-              : `https://source.unsplash.com/random/?dog`;
+              : `https://source.unsplash.com/random/?${query}=${seed}`;
 
             return (
-              <div key={seed} className="h-60">
+              <div key={seed} className="h-60 overflow-hidden">
                 <img
                   src={imgUrl}
                   alt={seed}
                   className={twMerge(
-                    "h-full w-full hover:scale-105 transition",
+                    "h-full w-full hover:scale-110 transition",
                     "object-cover object-center"
                   )}
                 />
@@ -59,6 +86,8 @@ const ImageGallery = () => {
 
         {/* CARD CONTAINER BOTTOM */}
       </div>
+
+      <MyToast toastItems={toastItems} info />
     </div>
   );
 };

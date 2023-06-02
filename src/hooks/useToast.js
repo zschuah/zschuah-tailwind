@@ -18,7 +18,7 @@ function useToast() {
     return () => clearTimeout(toastTimeout);
   }, [toastItems]);
 
-  return { toastItems, setToastItems, handleAddToast };
+  return { toastItems, handleAddToast };
 }
 
 export default useToast;

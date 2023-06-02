@@ -1,24 +1,17 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import MyToast from "./components/MyToast";
-import useToast from "./hooks/useToast";
+import Navbar from "./components/Navbar";
 import EmailSubscribe from "./pages/EmailSubscribe";
 import ImageGallery from "./pages/ImageGallery";
 
 function App() {
-  const { toastItems, setToastItems, handleAddToast } = useToast();
-
   return (
     <div className="App">
+      <Navbar />
       <Routes>
-        <Route
-          path="/"
-          element={<EmailSubscribe handleAddToast={handleAddToast} />}
-        />
+        <Route path="/" element={<EmailSubscribe />} />
         <Route path="/image-gallery" element={<ImageGallery />} />
       </Routes>
-
-      <MyToast toastItems={toastItems} setToastItems={setToastItems} />
     </div>
   );
 }
