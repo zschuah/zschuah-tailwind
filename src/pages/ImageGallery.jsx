@@ -15,6 +15,8 @@ const ImageGallery = () => {
   const [input, setInput] = useState("");
   const [pexelsList, setPexelsList] = useState("");
 
+  const [middleText, setMiddleText] = useState("Lorem Picsum");
+
   const fetchImages = async () => {
     setPexelsList([]);
     const data = await searchPexelsImages(input, seedList.length);
@@ -26,6 +28,8 @@ const ImageGallery = () => {
     e.preventDefault();
     if (input) {
       handleAddToast(`Searching for ${input}...`);
+      setMiddleText(input);
+
       setIsPicsum(false);
       fetchImages();
       setInput("");
@@ -33,6 +37,7 @@ const ImageGallery = () => {
   };
 
   const handleReset = () => {
+    setMiddleText("Lorem Picsum");
     setIsPicsum(true);
     setSeedList(seedList.map(() => crypto.randomUUID()));
   };
@@ -43,33 +48,62 @@ const ImageGallery = () => {
       className="bg-cyan-100 min-h-screen grid place-items-center py-8"
     >
       {/* CARD CONTAINER */}
-      <div className="bg-white w-11/12 p-8 rounded-3xl shadow-2xl max-w-7xl">
+      <div
+        className={twMerge(
+          "bg-white w-11/12 p-8 rounded-3xl shadow-2xl max-w-7xl",
+          "mt-16 lg:mt-0"
+        )}
+      >
         {/* SEARCH ROW */}
-        <div className="flex items-center space-x-2">
-          <form className="join" onSubmit={handleSubmit}>
-            <input
-              type="text"
-              placeholder="Type here"
-              className="input input-bordered input-info join-item"
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-            />
-            <button className="btn btn-info join-item">
-              <TbSearch className="text-2xl" />
-            </button>
+        <div
+          className={twMerge(
+            "flex justify-between items-center",
+            "flex-col lg:flex-row space-y-2"
+          )}
+        >
+          <form className="flex items-center space-x-2" onSubmit={handleSubmit}>
+            <div className="join">
+              <input
+                type="text"
+                placeholder="Type here"
+                className={twMerge(
+                  "input input-bordered input-info join-item",
+                  "w-32 lg:w-auto"
+                )}
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+              />
+              <div className="tooltip" data-tip="Get specific images">
+                <button type="submit" className="btn btn-info join-item">
+                  <TbSearch className="text-2xl" />
+                </button>
+              </div>
+            </div>
+
+            <div className="tooltip" data-tip="Get random images">
+              <button
+                type="button"
+                className="btn btn-warning"
+                onClick={handleReset}
+              >
+                <TbZoomReset className="text-2xl" />
+              </button>
+            </div>
           </form>
 
-          <button className="btn btn-warning" onClick={handleReset}>
-            <TbZoomReset className="text-2xl" />
-          </button>
+          {/* MIDDLE TEXT */}
+          <div className="font-[Pattaya] text-5xl">{middleText}</div>
 
-          <span className="countdown font-mono text-6xl">hello</span>
-
-          <div className={twMerge("badge badge-lg", !isPicsum && "bg-info")}>
-            Pexels
-          </div>
-          <div className={twMerge("badge badge-lg", isPicsum && "bg-warning")}>
-            Picsum
+          {/* BADGES */}
+          <div className="space-x-2">
+            <div className={twMerge("badge badge-lg", !isPicsum && "bg-info")}>
+              Pexels
+            </div>
+            <div
+              className={twMerge("badge badge-lg", isPicsum && "bg-warning")}
+            >
+              Picsum
+            </div>
           </div>
         </div>
 
@@ -90,17 +124,27 @@ const ImageGallery = () => {
                 key={seed}
                 className={twMerge(
                   "h-60 overflow-hidden bg-cyan-50",
-                  "relative grid place-items-center"
+                  "relative grid place-items-center group"
                 )}
               >
+                {/* BLACK BOX */}
+                <span
+                  className={twMerge(
+                    "absolute z-20 bottom-0 left-0 right-0 p-2",
+                    "bg-black text-white text-xs",
+                    "opacity-10 group-hover:opacity-50 transition"
+                  )}
+                >
+                  {imgUrl || "Loading..."}
+                </span>
                 {imgUrl && (
                   <img
                     src={imgUrl}
                     alt={seed}
                     className={twMerge(
-                      "h-full w-full hover:scale-110 transition",
+                      "h-full w-full group-hover:scale-110 transition",
                       "object-cover object-center",
-                      "cursor-pointer z-10"
+                      "z-10 cursor-pointer"
                     )}
                     onClick={() => window.open(imgUrl)}
                   />

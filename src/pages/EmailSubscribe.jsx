@@ -28,7 +28,12 @@ const EmailSubscribe = () => {
       )}
     >
       {/* CARD #1 */}
-      <div className="bg-zinc-800 w-3/4 rounded-2xl max-w-2xl">
+      <div
+        className={twMerge(
+          "bg-zinc-800 w-3/4 rounded-2xl max-w-2xl",
+          "mt-16 sm:m-0"
+        )}
+      >
         <p className="p-8 text-white">Lorem ipsum dolor sit amet.</p>
       </div>
 
@@ -39,7 +44,7 @@ const EmailSubscribe = () => {
           "overflow-hidden sm:flex"
         )}
       >
-        <div className="sm:w-1/3 min-h-60 bg-success overflow-hidden">
+        <div className="sm:w-1/3 h-60 bg-success overflow-hidden">
           <img
             src="https://source.unsplash.com/random/?plant"
             alt="plant"
