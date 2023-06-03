@@ -24,7 +24,7 @@ const EmailSubscribe = () => {
       id="email-subscribe"
       className={twMerge(
         "bg-zinc-700 min-h-screen",
-        "flex flex-col items-center justify-center space-y-4 py-28"
+        "flex flex-col items-center justify-center space-y-4 py-8"
       )}
     >
       {/* CARD #1 */}

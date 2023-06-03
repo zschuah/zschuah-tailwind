@@ -8,7 +8,7 @@ const Navbar = () => {
     <nav
       className={twMerge(
         "absolute left-1/2 -translate-x-1/2 mt-4",
-        "opacity-100 hover:opacity-100"
+        "opacity-50 hover:opacity-100"
       )}
     >
       <div className="tabs tabs-boxed">

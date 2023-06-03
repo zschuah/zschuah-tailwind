@@ -2,8 +2,8 @@ import { useState } from "react";
 import { TbSearch, TbZoomReset } from "react-icons/tb";
 import { twMerge } from "tailwind-merge";
 import MyToast from "../components/MyToast";
-import useToast from "../hooks/useToast";
 import { searchPexelsImages } from "../data/pexels";
+import useToast from "../hooks/useToast";
 
 const ImageGallery = () => {
   const { toastItems, handleAddToast } = useToast();
@@ -13,18 +13,22 @@ const ImageGallery = () => {
 
   const [isPicsum, setIsPicsum] = useState(true);
   const [input, setInput] = useState("");
+  const [pexelsList, setPexelsList] = useState("");
 
   const fetchImages = async () => {
+    setPexelsList([]);
     const data = await searchPexelsImages(input, seedList.length);
-    console.log(data);
+    const mappedData = data.map((item) => item.src.large);
+    setPexelsList(mappedData);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (input) {
-      handleAddToast("Searching for " + input);
+      handleAddToast(`Searching for ${input}...`);
       setIsPicsum(false);
       fetchImages();
+      setInput("");
     }
   };
 
@@ -36,10 +40,11 @@ const ImageGallery = () => {
   return (
     <div
       id="image-gallery"
-      className="bg-cyan-100 min-h-screen grid place-items-center py-28"
+      className="bg-cyan-100 min-h-screen grid place-items-center py-8"
     >
       {/* CARD CONTAINER */}
-      <div className="bg-white w-11/12 p-8 rounded-2xl shadow-2xl max-w-7xl">
+      <div className="bg-white w-11/12 p-8 rounded-3xl shadow-2xl max-w-7xl">
+        {/* SEARCH ROW */}
         <div className="flex items-center space-x-2">
           <form className="join" onSubmit={handleSubmit}>
             <input
@@ -58,7 +63,14 @@ const ImageGallery = () => {
             <TbZoomReset className="text-2xl" />
           </button>
 
-          <p>{isPicsum ? "Picsum" : "Unsplash"}</p>
+          <span className="countdown font-mono text-6xl">hello</span>
+
+          <div className={twMerge("badge badge-lg", !isPicsum && "bg-info")}>
+            Pexels
+          </div>
+          <div className={twMerge("badge badge-lg", isPicsum && "bg-warning")}>
+            Picsum
+          </div>
         </div>
 
         {/* GALLERY */}
@@ -68,21 +80,33 @@ const ImageGallery = () => {
             "sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
           )}
         >
-          {seedList.map((seed) => {
+          {seedList.map((seed, index) => {
             const imgUrl = isPicsum
-              ? `https://picsum.photos/seed/${seed}/600/400`
-              : "";
+              ? `https://picsum.photos/seed/${seed}/900/600`
+              : pexelsList[index];
 
             return (
-              <div key={seed} className="h-60 overflow-hidden">
-                <img
-                  src={imgUrl}
-                  alt={seed}
-                  className={twMerge(
-                    "h-full w-full hover:scale-110 transition",
-                    "object-cover object-center"
-                  )}
-                />
+              <div
+                key={seed}
+                className={twMerge(
+                  "h-60 overflow-hidden bg-cyan-50",
+                  "relative grid place-items-center"
+                )}
+              >
+                {imgUrl && (
+                  <img
+                    src={imgUrl}
+                    alt={seed}
+                    className={twMerge(
+                      "h-full w-full hover:scale-110 transition",
+                      "object-cover object-center",
+                      "cursor-pointer z-10"
+                    )}
+                    onClick={() => window.open(imgUrl)}
+                  />
+                )}
+                {/* LOADING SPINNER */}
+                <span className="loading loading-bars loading-lg absolute"></span>
               </div>
             );
           })}
