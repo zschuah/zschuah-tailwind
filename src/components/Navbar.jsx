@@ -13,7 +13,7 @@ const Navbar = () => {
       )}
     >
       <div className="tabs tabs-boxed flex-nowrap">
-        <MyNavLink to="/">
+        <MyNavLink to="/email-subscribe">
           <AiOutlineMail className="text-2xl" />
           <p className="text-xs">Email Subscribe</p>
         </MyNavLink>

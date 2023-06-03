@@ -34,7 +34,12 @@ const EmailSubscribe = () => {
           "mt-16 sm:m-0"
         )}
       >
-        <p className="p-8 text-white">Lorem ipsum dolor sit amet.</p>
+        <div className="p-8 text-white">
+          <p>import.meta.env.MODE: {import.meta.env.MODE}</p>
+          <p>import.meta.env.BASE_URL: {import.meta.env.BASE_URL}</p>
+          <p>import.meta.env.VITE_USER: {import.meta.env.VITE_USER}</p>
+          <p>import.meta.env.VITE_WALLET: {import.meta.env.VITE_WALLET}</p>
+        </div>
       </div>
 
       {/* CARD #2 */}

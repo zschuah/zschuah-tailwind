@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 import "./App.css";
 import Navbar from "./components/Navbar";
 import EmailSubscribe from "./pages/EmailSubscribe";
@@ -10,7 +10,8 @@ function App() {
     <div className="App">
       <Navbar />
       <Routes>
-        <Route path="/" element={<EmailSubscribe />} />
+        <Route path="/" element={<Navigate to="/email-subscribe" />} />
+        <Route path="/email-subscribe" element={<EmailSubscribe />} />
         <Route path="/image-gallery" element={<ImageGallery />} />
         <Route path="/pricing-cards" element={<PricingCards />} />
       </Routes>
