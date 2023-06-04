@@ -1,6 +1,6 @@
 import { twMerge } from "tailwind-merge";
 
-const MyToast = ({ toastItems, success, info, warning }) => {
+const MyToast = ({ toastItems, variant, className }) => {
   return (
     <div className="toast toast-start z-50">
       {toastItems.map((toast, index) => {
@@ -8,9 +8,8 @@ const MyToast = ({ toastItems, success, info, warning }) => {
           <div
             className={twMerge(
               "alert",
-              success && "alert-success",
-              info && "alert-info",
-              warning && "alert-warning"
+              variant && `alert-${variant}`,
+              className
             )}
             key={index}
           >

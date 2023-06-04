@@ -104,7 +104,7 @@ const EmailSubscribe = () => {
       </div>
 
       {/* END OF CARDS */}
-      <MyToast toastItems={toastItems} success />
+      <MyToast toastItems={toastItems} variant="success" />
     </div>
   );
 };

@@ -58,7 +58,7 @@ const ImageGallery = () => {
         <div
           className={twMerge(
             "flex justify-between items-center",
-            "flex-col lg:flex-row space-y-2"
+            "flex-col lg:flex-row space-y-4"
           )}
         >
           <form className="flex items-center space-x-2" onSubmit={handleSubmit}>
@@ -159,7 +159,7 @@ const ImageGallery = () => {
         {/* CARD CONTAINER BOTTOM */}
       </div>
 
-      <MyToast toastItems={toastItems} info />
+      <MyToast toastItems={toastItems} variant="info" />
     </div>
   );
 };

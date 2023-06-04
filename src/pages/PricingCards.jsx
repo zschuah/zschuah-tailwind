@@ -1,6 +1,10 @@
 import { twMerge } from "tailwind-merge";
+import MyToast from "../components/MyToast";
+import useToast from "../hooks/useToast";
 
 const PricingCards = () => {
+  const { toastItems, handleAddToast } = useToast();
+
   return (
     <div className="pricing-cards">
       {/* Global Container */}
@@ -22,6 +26,7 @@ const PricingCards = () => {
                     "transition duration-200",
                     "hover:bg-violet-800 hover:border-violet-800"
                   )}
+                  onClick={() => handleAddToast("100GB purchased!")}
                 >
                   Purchase
                 </button>
@@ -71,6 +76,7 @@ const PricingCards = () => {
                     "transition duration-200",
                     "hover:bg-violet-800 hover:border-violet-800"
                   )}
+                  onClick={() => handleAddToast("200GB purchased!")}
                 >
                   Purchase
                 </button>
@@ -120,6 +126,7 @@ const PricingCards = () => {
                     "transition duration-200",
                     "hover:bg-violet-800 hover:border-violet-800"
                   )}
+                  onClick={() => handleAddToast("2TB purchased!")}
                 >
                   Purchase
                 </button>
@@ -157,6 +164,11 @@ const PricingCards = () => {
           {/* END OF COLS */}
         </div>
       </div>
+
+      <MyToast
+        toastItems={toastItems}
+        className="bg-violet-700 text-white border-none"
+      />
     </div>
   );
 };
