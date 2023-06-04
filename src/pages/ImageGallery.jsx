@@ -159,7 +159,7 @@ const ImageGallery = () => {
         {/* CARD CONTAINER BOTTOM */}
       </div>
 
-      <MyToast toastItems={toastItems} variant="info" />
+      <MyToast toastItems={toastItems} className="alert-info" />
     </div>
   );
 };
