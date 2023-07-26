@@ -10,11 +10,11 @@ function App() {
     <div className="App">
       <Navbar />
       <Routes>
-        <Route path="/" element={<Navigate to="/email-subscribe" />} />
+        <Route path="/" element={<Navigate to="/lorem-picsum" />} />
         <Route path="/email-subscribe" element={<EmailSubscribe />} />
-        <Route path="/image-gallery" element={<ImageGallery />} />
+        <Route path="/lorem-picsum" element={<ImageGallery />} />
         <Route path="/pricing-cards" element={<PricingCards />} />
-        <Route path="*" element={<Navigate to="/email-subscribe" />} />
+        <Route path="*" element={<Navigate to="/lorem-picsum" />} />
       </Routes>
     </div>
   );

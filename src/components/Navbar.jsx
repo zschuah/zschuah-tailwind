@@ -17,9 +17,9 @@ const Navbar = () => {
           <AiOutlineMail className="text-2xl" />
           <p className="text-xs">Email Subscribe</p>
         </MyNavLink>
-        <MyNavLink to="/image-gallery">
+        <MyNavLink to="/lorem-picsum">
           <BsImageFill className="text-2xl" />
-          <p className="text-xs">Image Gallery</p>
+          <p className="text-xs">Lorem Picsum</p>
         </MyNavLink>
         <MyNavLink to="/pricing-cards">
           <ImPriceTags className="text-2xl" />
