@@ -35,10 +35,10 @@ const EmailSubscribe = () => {
         )}
       >
         <div className="p-8 text-white">
-          <p>import.meta.env.MODE: {import.meta.env.MODE}</p>
-          <p>import.meta.env.BASE_URL: {import.meta.env.BASE_URL}</p>
-          <p>import.meta.env.VITE_USER: {import.meta.env.VITE_USER}</p>
-          <p>import.meta.env.VITE_WALLET: {import.meta.env.VITE_WALLET}</p>
+          <p>IMPORT_META_ENV_MODE: {import.meta.env.MODE}</p>
+          <p>IMPORT_META_ENV_BASE_URL: {import.meta.env.BASE_URL}</p>
+          <p>IMPORT_META_ENV_VITE_USER: {import.meta.env.VITE_USER}</p>
+          <p>IMPORT_META_ENV_VITE_WALLET: {import.meta.env.VITE_WALLET}</p>
         </div>
       </div>
 
@@ -49,7 +49,7 @@ const EmailSubscribe = () => {
           "overflow-hidden sm:flex"
         )}
       >
-        <div className="sm:w-1/3 h-60 bg-success overflow-hidden">
+        <div className="sm:w-1/3 min-h-60 bg-success overflow-hidden">
           <img
             src="https://source.unsplash.com/random/?plant"
             alt="plant"

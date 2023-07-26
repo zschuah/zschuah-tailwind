@@ -14,6 +14,7 @@ function App() {
         <Route path="/email-subscribe" element={<EmailSubscribe />} />
         <Route path="/image-gallery" element={<ImageGallery />} />
         <Route path="/pricing-cards" element={<PricingCards />} />
+        <Route path="*" element={<Navigate to="/email-subscribe" />} />
       </Routes>
     </div>
   );
