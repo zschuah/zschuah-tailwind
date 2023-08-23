@@ -1,10 +1,9 @@
 import { useState } from "react";
-import { TbSearch, TbZoomReset } from "react-icons/tb";
 import { twMerge } from "tailwind-merge";
-import MyToast from "../layout/MyToast";
+import ImageSearchRow from "../components/ImageSearchRow";
 import { searchPexelsImages } from "../data/pexels";
 import useToast from "../hooks/useToast";
-import ImageSearchRow from "../components/ImageSearchRow";
+import MyToast from "../layout/MyToast";
 
 const ImageGallery = () => {
   const { toastItems, handleAddToast } = useToast();
@@ -13,32 +12,22 @@ const ImageGallery = () => {
   );
 
   const [isPicsum, setIsPicsum] = useState(true);
-  const [input, setInput] = useState("");
-  const [pexelsList, setPexelsList] = useState("");
+  const [pexelsList, setPexelsList] = useState([]);
 
-  const [middleText, setMiddleText] = useState("Lorem Picsum");
-
-  const fetchImages = async () => {
+  const fetchImages = async (input) => {
     setPexelsList([]);
     const data = await searchPexelsImages(input, seedList.length);
     const mappedData = data.map((item) => item.src.large);
     setPexelsList(mappedData);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (input) {
-      handleAddToast(`Searching for ${input}...`);
-      setMiddleText(input);
-
-      setIsPicsum(false);
-      fetchImages();
-      setInput("");
-    }
+  const handleSubmit = (input) => {
+    handleAddToast(`Searching for ${input}...`);
+    setIsPicsum(false);
+    fetchImages(input);
   };
 
   const handleReset = () => {
-    setMiddleText("Lorem Picsum");
     setIsPicsum(true);
     setSeedList(seedList.map(() => crypto.randomUUID()));
   };
@@ -57,68 +46,12 @@ const ImageGallery = () => {
       >
         <ImageSearchRow
           handleSubmit={handleSubmit}
-          input={input}
-          setInput={setInput}
           handleReset={handleReset}
           isPicsum={isPicsum}
-          middleText={middleText}
         />
 
-        {/* SEARCH ROW */}
-        <div
-          className={twMerge(
-            "flex justify-between items-center",
-            "flex-col lg:flex-row space-y-4"
-          )}
-        >
-          <form className="flex items-center space-x-2" onSubmit={handleSubmit}>
-            <div className="join">
-              <input
-                type="text"
-                placeholder="Type here"
-                className={twMerge(
-                  "input input-bordered input-info join-item",
-                  "w-32 lg:w-auto"
-                )}
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-              />
-              <div className="tooltip" data-tip="Get specific images">
-                <button type="submit" className="btn btn-info join-item">
-                  <TbSearch className="text-2xl" />
-                </button>
-              </div>
-            </div>
-
-            <div className="tooltip" data-tip="Get random images">
-              <button
-                type="button"
-                className="btn btn-warning"
-                onClick={handleReset}
-              >
-                <TbZoomReset className="text-2xl" />
-              </button>
-            </div>
-          </form>
-
-          {/* MIDDLE TEXT */}
-          <div className="font-[Pattaya] text-5xl">{middleText}</div>
-
-          {/* BADGES */}
-          <div className="space-x-2">
-            <div className={twMerge("badge badge-lg", !isPicsum && "bg-info")}>
-              Pexels
-            </div>
-            <div
-              className={twMerge("badge badge-lg", isPicsum && "bg-warning")}
-            >
-              Picsum
-            </div>
-          </div>
-        </div>
-
         {/* GALLERY */}
-        <div
+        <section
           className={twMerge(
             "grid grid-cols-1 gap-2 my-8",
             "sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
@@ -164,7 +97,7 @@ const ImageGallery = () => {
               </div>
             );
           })}
-        </div>
+        </section>
 
         {/* CARD CONTAINER BOTTOM */}
       </div>

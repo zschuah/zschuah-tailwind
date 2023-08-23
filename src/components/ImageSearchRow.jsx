@@ -1,14 +1,11 @@
-import { twMerge } from "tailwind-merge";
+import { useState } from "react";
 import { TbSearch, TbZoomReset } from "react-icons/tb";
+import { twMerge } from "tailwind-merge";
 
-const ImageSearchRow = ({
-  handleSubmit,
-  input,
-  setInput,
-  handleReset,
-  middleText,
-  isPicsum,
-}) => {
+const ImageSearchRow = ({ handleSubmit, handleReset, isPicsum }) => {
+  const [input, setInput] = useState("");
+  const [middleText, setMiddleText] = useState("Lorem Picsum");
+
   return (
     <section
       className={twMerge(
@@ -16,7 +13,17 @@ const ImageSearchRow = ({
         "flex-col lg:flex-row space-y-4"
       )}
     >
-      <form className="flex items-center space-x-2" onSubmit={handleSubmit}>
+      <form
+        className="flex items-center space-x-2"
+        onSubmit={(e) => {
+          e.preventDefault();
+          if (input) {
+            handleSubmit(input);
+            setMiddleText(input);
+            setInput("");
+          }
+        }}
+      >
         <div className="join">
           <input
             type="text"
@@ -39,7 +46,10 @@ const ImageSearchRow = ({
           <button
             type="button"
             className="btn btn-warning"
-            onClick={handleReset}
+            onClick={() => {
+              setMiddleText("Lorem Picsum");
+              handleReset();
+            }}
           >
             <TbZoomReset className="text-2xl" />
           </button>
