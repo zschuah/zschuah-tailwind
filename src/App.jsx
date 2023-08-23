@@ -1,8 +1,8 @@
-import { Route, Routes, Navigate } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import "./App.css";
 import Navbar from "./layout/Navbar";
 import EmailSubscribe from "./pages/EmailSubscribe";
-import ImageGallery from "./pages/ImageGallery";
+import LoremPicsum from "./pages/LoremPicsum";
 import PricingCards from "./pages/PricingCards";
 
 function App() {
@@ -12,7 +12,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Navigate to="/lorem-picsum" />} />
         <Route path="/email-subscribe" element={<EmailSubscribe />} />
-        <Route path="/lorem-picsum" element={<ImageGallery />} />
+        <Route path="/lorem-picsum" element={<LoremPicsum />} />
         <Route path="/pricing-cards" element={<PricingCards />} />
         <Route path="*" element={<Navigate to="/lorem-picsum" />} />
       </Routes>

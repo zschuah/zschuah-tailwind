@@ -4,7 +4,19 @@ import { twMerge } from "tailwind-merge";
 
 const ImageSearchRow = ({ handleSubmit, handleReset, isPicsum }) => {
   const [input, setInput] = useState("");
+  const [isError, setIsError] = useState(false);
   const [middleText, setMiddleText] = useState("Lorem Picsum");
+
+  const handleValidate = (e) => {
+    e.preventDefault();
+    if (input) {
+      handleSubmit(input);
+      setMiddleText(input);
+      setInput("");
+    } else {
+      setIsError(true);
+    }
+  };
 
   return (
     <section
@@ -13,28 +25,23 @@ const ImageSearchRow = ({ handleSubmit, handleReset, isPicsum }) => {
         "flex-col lg:flex-row space-y-4"
       )}
     >
-      <form
-        className="flex items-center space-x-2"
-        onSubmit={(e) => {
-          e.preventDefault();
-          if (input) {
-            handleSubmit(input);
-            setMiddleText(input);
-            setInput("");
-          }
-        }}
-      >
+      <form className="flex items-center space-x-2" onSubmit={handleValidate}>
         <div className="join">
           <input
             type="text"
             placeholder="Type here"
             className={twMerge(
               "input input-bordered input-info join-item",
-              "w-32 lg:w-auto"
+              "w-32 lg:w-auto",
+              isError && "ring ring-red-500 ring-offset-1"
             )}
             value={input}
-            onChange={(e) => setInput(e.target.value)}
+            onChange={(e) => {
+              setIsError(false);
+              setInput(e.target.value);
+            }}
           />
+
           <div className="tooltip" data-tip="Get specific images">
             <button type="submit" className="btn btn-info join-item">
               <TbSearch className="text-2xl" />
@@ -48,6 +55,7 @@ const ImageSearchRow = ({ handleSubmit, handleReset, isPicsum }) => {
             className="btn btn-warning"
             onClick={() => {
               setMiddleText("Lorem Picsum");
+              setIsError(false);
               handleReset();
             }}
           >
