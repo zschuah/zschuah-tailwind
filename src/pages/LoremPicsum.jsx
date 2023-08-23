@@ -55,8 +55,6 @@ const LoremPicsum = () => {
           pexelsList={pexelsList}
           isPicsum={isPicsum}
         />
-
-        {/* CARD CONTAINER BOTTOM */}
       </div>
 
       <MyToast toastItems={toastItems} className="alert-info" />
