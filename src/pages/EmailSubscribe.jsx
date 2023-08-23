@@ -1,6 +1,7 @@
 import { twMerge } from "tailwind-merge";
 import EmailRow from "../components/EmailRow";
 import useToast from "../hooks/useToast";
+import EmailDarkCard from "../layout/EmailDarkCard";
 import MyToast from "../layout/MyToast";
 
 const EmailSubscribe = () => {
@@ -14,21 +15,21 @@ const EmailSubscribe = () => {
         "flex flex-col items-center justify-center space-y-4 py-8"
       )}
     >
-      <section
-        className={twMerge(
-          "bg-zinc-800 w-3/4 rounded-2xl max-w-2xl",
-          "mt-16 sm:m-0"
-        )}
-      >
-        <div className="p-8 text-white">
+      <EmailDarkCard>
+        <div className="p-8 w-full">
+          <h4 className="font-semibold underline text-center">
+            Testing out VITE environment variables
+          </h4>
           <p>IMPORT_META_ENV_MODE: {import.meta.env.MODE}</p>
           <p>IMPORT_META_ENV_BASE_URL: {import.meta.env.BASE_URL}</p>
           <p>IMPORT_META_ENV_VITE_USER: {import.meta.env.VITE_USER}</p>
           <p>IMPORT_META_ENV_VITE_WALLET: {import.meta.env.VITE_WALLET}</p>
         </div>
-      </section>
+      </EmailDarkCard>
 
-      <EmailRow handleAddToast={handleAddToast} />
+      <EmailDarkCard>
+        <EmailRow handleAddToast={handleAddToast} />
+      </EmailDarkCard>
 
       {/* END OF CARDS */}
       <MyToast toastItems={toastItems} className="alert-success" />

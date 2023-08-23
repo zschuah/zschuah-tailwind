@@ -16,13 +16,8 @@ const EmailRow = ({ handleAddToast }) => {
   };
 
   return (
-    <section
-      className={twMerge(
-        "bg-zinc-800 w-3/4 rounded-2xl max-w-2xl",
-        "overflow-hidden sm:flex"
-      )}
-    >
-      <div className="sm:w-1/3 min-h-60 bg-success overflow-hidden">
+    <>
+      <div className="sm:w-1/3 h-60 bg-success overflow-hidden">
         <img
           src="https://source.unsplash.com/random/?plant"
           alt="plant"
@@ -34,8 +29,8 @@ const EmailRow = ({ handleAddToast }) => {
       </div>
 
       {/* CARD #2 TEXT */}
-      <div className="p-8 text-white flex flex-col justify-center space-y-4">
-        <h4 className="font-serif">Get diet and fitness tips in your inbox</h4>
+      <div className="p-8 flex flex-col justify-center space-y-4">
+        <h4 className="font-serif">Get diet and fitness tips!</h4>
         <p className="text-sm">
           Eat better and exercise better. Sign up for the Diet & Fitness
           newsletter.
@@ -57,8 +52,7 @@ const EmailRow = ({ handleAddToast }) => {
             <button
               className={twMerge(
                 "btn btn-success normal-case text-sm",
-                "w-full sm:w-auto",
-                "mt-2 sm:mt-0"
+                "w-full sm:w-auto mt-2 sm:mt-0"
               )}
             >
               Subscribe
@@ -72,7 +66,7 @@ const EmailRow = ({ handleAddToast }) => {
           </small>
         </form>
       </div>
-    </section>
+    </>
   );
 };
 
