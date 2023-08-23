@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { twMerge } from "tailwind-merge";
-import MyToast from "../components/MyToast";
+import MyToast from "../layout/MyToast";
 import useToast from "../hooks/useToast";
 
 const EmailSubscribe = () => {

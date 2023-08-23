@@ -1,6 +1,6 @@
 import { Route, Routes, Navigate } from "react-router-dom";
 import "./App.css";
-import Navbar from "./components/Navbar";
+import Navbar from "./layout/Navbar";
 import EmailSubscribe from "./pages/EmailSubscribe";
 import ImageGallery from "./pages/ImageGallery";
 import PricingCards from "./pages/PricingCards";

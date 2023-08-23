@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { TbSearch, TbZoomReset } from "react-icons/tb";
 import { twMerge } from "tailwind-merge";
-import MyToast from "../components/MyToast";
+import MyToast from "../layout/MyToast";
 import { searchPexelsImages } from "../data/pexels";
 import useToast from "../hooks/useToast";
+import ImageSearchRow from "../components/ImageSearchRow";
 
 const ImageGallery = () => {
   const { toastItems, handleAddToast } = useToast();
@@ -54,6 +55,15 @@ const ImageGallery = () => {
           "mt-16 lg:mt-0"
         )}
       >
+        <ImageSearchRow
+          handleSubmit={handleSubmit}
+          input={input}
+          setInput={setInput}
+          handleReset={handleReset}
+          isPicsum={isPicsum}
+          middleText={middleText}
+        />
+
         {/* SEARCH ROW */}
         <div
           className={twMerge(
