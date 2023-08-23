@@ -35,7 +35,7 @@ const LoremPicsum = () => {
 
   return (
     <div
-      id="image-gallery"
+      id="lorem-picsum"
       className="bg-cyan-100 min-h-screen grid place-items-center py-8"
     >
       {/* CARD CONTAINER */}
